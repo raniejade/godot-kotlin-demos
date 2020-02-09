@@ -4,9 +4,16 @@ plugins {
 }
 
 godot {
+  isCompositeBuild.set(true)
   libraries {
     val platformer by creating {
-
+      classes(
+        "Bullet",
+        "Coin",
+        "Enemy",
+        "FollowCamera",
+        "Player"
+      )
     }
   }
 }

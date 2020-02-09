@@ -1,0 +1,18 @@
+[entry]
+
+X11.64="res://build/bin/platformerLinux/debugShared/lib3d_platformer.so"
+Windows.64="res://build/bin/platformerWindows/debugShared/3d_platformer.dll"
+OSX.64="res://build/bin/platformerMacOS/debugShared/lib3d_platformer.dylib"
+
+[dependencies]
+
+X11.64=[  ]
+Windows.64=[  ]
+OSX.64=[  ]
+
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=true
