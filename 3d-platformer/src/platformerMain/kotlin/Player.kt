@@ -62,8 +62,7 @@ class Player : KinematicBody() {
     val targetDir = (dir - up * dir.dot(up)).normalized()
 
     if (isOnFloor()) {
-      val sharpTurn = hspeed > 0.1f && rad2deg(acos(targetDir.dot(hdir))) > sharpTurnThreshold
-
+      val sharpTurn = hspeed > 0.1f && acos(targetDir.dot(hdir)).toDegrees() > sharpTurnThreshold
       if (dir.length() > 0.1f && !sharpTurn) {
         if (hspeed > 0.001f) {
           hdir = adjustFacing(hdir, targetDir, delta, 1.0f / hspeed * turnSpeed, up)

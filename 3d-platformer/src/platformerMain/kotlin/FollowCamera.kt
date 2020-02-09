@@ -9,8 +9,8 @@ class FollowCamera : Camera() {
   var minDistance by floatProperty()
   var maxDistance by floatProperty()
   var angleVAdjust by floatProperty()
-  var autoturnRayAperture by floatProperty()
-  var autoturnSpeed by floatProperty()
+  var autoturnRayAperture by intProperty()
+  var autoturnSpeed by intProperty()
 
   private val maxHeight = 2f
   private val minHeight = 0f
@@ -40,19 +40,19 @@ class FollowCamera : Camera() {
     // Check autoturn
     val ds = PhysicsServer.spaceGetDirectState(getWorld().space)
 
-    val colLeft = ds.intersectRay(target, target + Basis(up, deg2rad(autoturnRayAperture)).xform(delta), collisionExceptions)
+    val colLeft = ds.intersectRay(target, target + Basis(up, autoturnRayAperture.toFloat().toRadians()).xform(delta), collisionExceptions)
     val col = ds.intersectRay(target, target + delta, collisionExceptions)
-    val colRight = ds.intersectRay(target, Basis(up, deg2rad(-autoturnRayAperture)).xform(delta), collisionExceptions)
+    val colRight = ds.intersectRay(target, target + Basis(up, (-autoturnRayAperture).toFloat().toRadians()).xform(delta), collisionExceptions)
 
     if (!col.empty()) {
       // If main ray was occluded, get camera closer, this is the worst case scenario
       delta = col["position"].asVector3() - target
     } else if (!colLeft.empty() && colRight.empty()) {
       // If only left ray is occluded, turn the camera around to the right
-      delta = Basis(up, deg2rad(-dt * autoturnSpeed)).xform(delta)
+      delta = Basis(up, (-dt * autoturnSpeed).toRadians()).xform(delta)
     } else if (colLeft.empty() && !colRight.empty()) {
       // If only right ray is occluded, turn the camera around to the left
-      delta = Basis(up, deg2rad(dt * autoturnSpeed)).xform(delta)
+      delta = Basis(up, (dt * autoturnSpeed).toRadians()).xform(delta)
     } else {
       // Do nothing otherwise, left and right are occluded but center is not, so do not autoturn
     }
@@ -68,12 +68,12 @@ class FollowCamera : Camera() {
 
     // Turn a little up or down
     val t = transform
-    t.basis = Basis(t.basis[0], deg2rad(angleVAdjust)) * t.basis
+    t.basis = Basis(t.basis[0], angleVAdjust.toRadians()) * t.basis
     transform = t
 
     // alternative
     // transform {
-    //  basis = Basis(t.basis[0], angleVAdjust.toDegrees().toFloat()) * t.basis
+    //  basis = Basis(t.basis[0], angleVAdjust.toRadians()) * t.basis
     // }
   }
 
@@ -100,8 +100,8 @@ class FollowCamera : Camera() {
         registerProperty(FollowCamera::minDistance, default = 0.5f)
         registerProperty(FollowCamera::maxDistance, default = 3.5f)
         registerProperty(FollowCamera::angleVAdjust)
-        registerProperty(FollowCamera::autoturnRayAperture, default = 25f)
-        registerProperty(FollowCamera::autoturnSpeed, default = 50f)
+        registerProperty(FollowCamera::autoturnRayAperture, default = 25)
+        registerProperty(FollowCamera::autoturnSpeed, default = 50)
         registerMethod(FollowCamera::_ready)
         registerMethod(FollowCamera::_physics_process)
       }

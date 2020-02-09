@@ -38,7 +38,7 @@ func _physics_process(dt):
 	var col_left = ds.intersect_ray(target, target + Basis(up, deg2rad(autoturn_ray_aperture)).xform(delta), collision_exception)
 	var col = ds.intersect_ray(target, target + delta, collision_exception)
 	var col_right = ds.intersect_ray(target, target + Basis(up, deg2rad(-autoturn_ray_aperture)).xform(delta), collision_exception)
-
+	
 	if !col.empty():
 		# If main ray was occluded, get camera closer, this is the worst case scenario
 		delta = col.position - target

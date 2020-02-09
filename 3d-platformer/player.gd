@@ -52,6 +52,7 @@ func adjust_facing(p_facing, p_target, p_step, p_adjust_rate, current_gn):
 	else:
 		a = turn
 	ang = (ang - a) * s
+	
 	return (n * cos(ang) + t * sin(ang)) * p_facing.length()
 
 
@@ -70,7 +71,6 @@ func _physics_process(delta):
 	var up = -g.normalized() # (up is against gravity)
 	var vv = up.dot(lv) # Vertical velocity
 	var hv = lv - up * vv # Horizontal velocity
-	print(str(hv))
 	
 	var hdir = hv.normalized() # Horizontal direction
 	var hspeed = hv.length() # Horizontal speed
@@ -94,7 +94,6 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		var sharp_turn = hspeed > 0.1 and rad2deg(acos(target_dir.dot(hdir))) > sharp_turn_threshold
-		
 		if dir.length() > 0.1 and !sharp_turn:
 			if hspeed > 0.001:
 				#linear_dir = linear_h_velocity/linear_vel
@@ -105,7 +104,6 @@ func _physics_process(delta):
 				facing_dir = hdir
 			else:
 				hdir = target_dir
-			
 			if hspeed < max_speed:
 				hspeed += accel * delta
 		else:

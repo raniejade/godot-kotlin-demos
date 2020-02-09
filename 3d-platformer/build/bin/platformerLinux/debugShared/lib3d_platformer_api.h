@@ -122,6 +122,10 @@ typedef struct {
       void (*godot_nativescript_init_)(void* handle);
       void (*godot_nativescript_terminate_)(void* handle);
       lib3d_platformer_KFloat (*rad2deg)(lib3d_platformer_KFloat y);
+      lib3d_platformer_KDouble (*toDegrees)(lib3d_platformer_KDouble thiz);
+      lib3d_platformer_KFloat (*toDegrees_)(lib3d_platformer_KFloat thiz);
+      lib3d_platformer_KDouble (*toRadians)(lib3d_platformer_KDouble thiz);
+      lib3d_platformer_KFloat (*toRadians_)(lib3d_platformer_KFloat thiz);
       struct {
         lib3d_platformer_KType* (*_type)(void);
         lib3d_platformer_kref_Bullet (*Bullet)();
@@ -160,10 +164,10 @@ typedef struct {
         lib3d_platformer_kref_FollowCamera (*FollowCamera)();
         lib3d_platformer_KFloat (*get_angleVAdjust)(lib3d_platformer_kref_FollowCamera thiz);
         void (*set_angleVAdjust)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KFloat set);
-        lib3d_platformer_KFloat (*get_autoturnRayAperture)(lib3d_platformer_kref_FollowCamera thiz);
-        void (*set_autoturnRayAperture)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KFloat set);
-        lib3d_platformer_KFloat (*get_autoturnSpeed)(lib3d_platformer_kref_FollowCamera thiz);
-        void (*set_autoturnSpeed)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KFloat set);
+        lib3d_platformer_KInt (*get_autoturnRayAperture)(lib3d_platformer_kref_FollowCamera thiz);
+        void (*set_autoturnRayAperture)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KInt set);
+        lib3d_platformer_KInt (*get_autoturnSpeed)(lib3d_platformer_kref_FollowCamera thiz);
+        void (*set_autoturnSpeed)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KInt set);
         lib3d_platformer_KFloat (*get_maxDistance)(lib3d_platformer_kref_FollowCamera thiz);
         void (*set_maxDistance)(lib3d_platformer_kref_FollowCamera thiz, lib3d_platformer_KFloat set);
         lib3d_platformer_KFloat (*get_minDistance)(lib3d_platformer_kref_FollowCamera thiz);
