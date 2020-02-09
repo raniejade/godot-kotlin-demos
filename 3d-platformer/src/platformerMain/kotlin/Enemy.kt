@@ -46,6 +46,7 @@ class Enemy : RigidBody() {
           friction = 1f
           cc.disabled = true
           getNode<AudioStreamPlayer3D>("sound_hit").play()
+          return
         }
       }
     }

@@ -32,28 +32,42 @@ var linear_velocity=Vector3()
 var shoot_blend = 0
 
 func adjust_facing(p_facing, p_target, p_step, p_adjust_rate, current_gn):
+	print("adjust facing. start")
 	var n = p_target # Normal
+	print("n=" + str(n))
 	var t = n.cross(current_gn).normalized()
+	print("t=" + str(t))
 	 
 	var x = n.dot(p_facing)
+	print("x=" + str(x))
 	var y = t.dot(p_facing)
+	print("y=" + str(y))
 	
 	var ang = atan2(y,x)
+	print("ang=" + str(ang))
 	
 	if abs(ang) < 0.001: # Too small
+		print("adjust facing. return early")
 		return p_facing
 	
 	var s = sign(ang)
+	print("s=" + str(s))
 	ang = ang * s
+	print("ang=" + str(ang))
 	var turn = ang * p_adjust_rate * p_step
+	print("turn=" + str(turn))
 	var a
 	if ang < turn:
 		a = ang
 	else:
 		a = turn
+	print("a=" + str(a))
 	ang = (ang - a) * s
-	
-	return (n * cos(ang) + t * sin(ang)) * p_facing.length()
+	print("ang=" + str(ang))
+	var ret = (n * cos(ang) + t * sin(ang)) * p_facing.length()
+	print("ret = " + str(ret))
+	print("adjust facing. end")
+	return ret
 
 
 func _physics_process(delta):
