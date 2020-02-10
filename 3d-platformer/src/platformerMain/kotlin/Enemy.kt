@@ -2,16 +2,37 @@ import godot.*
 import godot.core.Basis
 import godot.core.Transform
 import godot.core.Vector3
+import kotlin.system.measureTimeMillis
 
 class Enemy : RigidBody() {
   private var prevAdvance = false
   private val deaccel = 20f
   private val accel = 5f
-  private val maxSpeed = 2
-  private var rotDir = 4
-  private val rotSpeed = 1
+  private val maxSpeed = 2f
+  private var rotDir = 4f
+  private val rotSpeed = 1f
 
   private var dying = false
+
+  private val floorRayCast by lazy {
+    getNode<RayCast>("Armature/ray_floor")
+  }
+
+  private val wallRayCast by lazy {
+    getNode<RayCast>("Armature/ray_wall")
+  }
+
+  private val armature by lazy {
+    getNode<Spatial>("Armature")
+  }
+
+  private val animationPlayer by lazy {
+    getNode<AnimationPlayer>("AnimationPlayer")
+  }
+
+  private val soundHitPlayer by lazy {
+    getNode<AudioStreamPlayer3D>("sound_hit")
+  }
 
   fun _integrate_forces(state: PhysicsDirectBodyState) {
     val delta = state.step
@@ -40,23 +61,20 @@ class Enemy : RigidBody() {
           setMode(Mode.RIGID.value)
           dying = true
           state.angularVelocity = -dp.cross(up).normalized() * 33f
-          val animationPlayer = getNode<AnimationPlayer>("AnimationPlayer")
           animationPlayer.play("impact")
           animationPlayer.queue("explode")
           friction = 1f
           cc.disabled = true
-          getNode<AudioStreamPlayer3D>("sound_hit").play()
+          soundHitPlayer.play()
           return
         }
       }
     }
-
-    val colFloor = getNode<RayCast>("Armature/ray_floor").isColliding()
-    val colWall = getNode<RayCast>("Armature/ray_wall").isColliding()
+    val colFloor = floorRayCast.isColliding()
+    val colWall = wallRayCast.isColliding()
 
     val advance = !colWall and colFloor
 
-    val armature = getNode<Spatial>("Armature")
     var dir = armature.transform.basis[2].normalized()
     var deaccelDir = dir
 
@@ -67,7 +85,7 @@ class Enemy : RigidBody() {
       deaccelDir = dir.cross(g).normalized()
     } else {
       if (prevAdvance) {
-        rotDir = 1
+        rotDir = 1f
       }
 
       dir = Basis(up, rotDir * rotSpeed * delta).xform(dir)
@@ -101,4 +119,9 @@ class Enemy : RigidBody() {
     const val STATE_WALING = 0
     const val STATE_DYING = 1
   }
+}
+
+private fun executeAndMeasure(name: String, cb: () -> Unit) {
+  val ms = measureTimeMillis(cb)
+  gprint("$name completed in $ms milliseconds")
 }
