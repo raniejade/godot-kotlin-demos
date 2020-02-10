@@ -86,7 +86,6 @@ class Player : KinematicBody() {
       val meshXform = getNode<Spatial>("Armature").transform
       var facingMesh = -meshXform.basis[0].normalized()
       facingMesh = (facingMesh - up * facingMesh.dot(up)).normalized()
-
       if (hspeed > 0f) {
         facingMesh = adjustFacing(facingMesh, targetDir, delta, 1.0f / hspeed * turnSpeed, up)
       }

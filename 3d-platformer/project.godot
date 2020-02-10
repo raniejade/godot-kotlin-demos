@@ -19,10 +19,6 @@ config/name="Platformer 3D"
 run/main_scene="res://stage.scn"
 config/icon="res://icon.png"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [gdnative]
 
 singletons=[  ]
