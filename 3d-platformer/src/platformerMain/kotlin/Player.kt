@@ -141,7 +141,8 @@ class Player : KinematicBody() {
 
     if (shootAttempt && !prevShoot) {
       shootBlend = SHOOT_TIME
-      val bullet = Bullet()
+      val bullet = ResourceLoader.load<PackedScene>("res://bullet.scn")
+              .instance<Bullet>()
       val bulletGlobalTransform = getNode<Spatial>("Armature/bullet").globalTransform
       bullet.transform = bulletGlobalTransform.orthonormalized()
       getParent<Node>().addChild(bullet)
