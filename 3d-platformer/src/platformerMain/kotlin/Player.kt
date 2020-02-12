@@ -19,7 +19,7 @@ class Player : KinematicBody() {
   private var linearVelocity = Vector3()
   private var shootBlend = 0f
 
-  fun _physics_process(delta: Float) {
+  override fun _physics_process(delta: Float) {
     var lv = linearVelocity
     val g = Vector3(0f, -9.8f, 0f)
     // apply gravity
@@ -162,7 +162,7 @@ class Player : KinematicBody() {
     animationTreePlayer.blend2NodeSetAmount("gun", min(shootBlend, 1.0f))
   }
 
-  fun _ready() {
+  override fun _ready() {
     getNode<AnimationTreePlayer>("AnimationTreePlayer").setActive(true)
   }
 

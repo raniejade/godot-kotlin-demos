@@ -33,7 +33,7 @@ class Enemy : RigidBody() {
     getNode<AudioStreamPlayer3D>("sound_hit")
   }
 
-  fun _integrate_forces(state: PhysicsDirectBodyState) {
+  override fun _integrate_forces(state: PhysicsDirectBodyState) {
     val delta = state.step
     var lv = state.linearVelocity
     var g = state.totalGravity

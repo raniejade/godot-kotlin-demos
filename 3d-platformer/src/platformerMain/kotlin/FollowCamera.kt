@@ -15,7 +15,7 @@ class FollowCamera : Camera() {
   private val maxHeight = 2f
   private val minHeight = 0f
 
-  fun _physics_process(dt: Float) {
+  override fun _physics_process(dt: Float) {
     val target = getParent<Spatial>().globalTransform.origin
     var pos = globalTransform.origin
     val up = Vector3(0f, 1f, 0f)
@@ -77,7 +77,7 @@ class FollowCamera : Camera() {
     // }
   }
 
-  fun _ready() {
+  override fun _ready() {
     // Find collision exceptions for ray
     var node: Node? = this
     while (node != null) {
