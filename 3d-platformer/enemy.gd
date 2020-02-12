@@ -74,6 +74,7 @@ func _integrate_forces(state):
 	
 	state.set_linear_velocity(lv)
 	prev_advance = advance
+	
 
 
 func _die():

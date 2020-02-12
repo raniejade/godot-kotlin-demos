@@ -2,7 +2,6 @@ import godot.*
 import godot.core.Basis
 import godot.core.Transform
 import godot.core.Vector3
-import kotlin.system.measureTimeMillis
 
 class Enemy : RigidBody() {
   private var prevAdvance = false
@@ -119,9 +118,4 @@ class Enemy : RigidBody() {
     const val STATE_WALING = 0
     const val STATE_DYING = 1
   }
-}
-
-private fun executeAndMeasure(name: String, cb: () -> Unit) {
-  val ms = measureTimeMillis(cb)
-  gprint("$name completed in $ms milliseconds")
 }
