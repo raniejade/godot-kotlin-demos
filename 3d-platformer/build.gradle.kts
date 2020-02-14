@@ -4,7 +4,6 @@ plugins {
 }
 
 godot {
-  isCompositeBuild.set(true)
   libraries {
     val platformer by creating {
       classes(
