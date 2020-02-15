@@ -22,10 +22,8 @@ pluginManagement {
 
   if (compositeBuild == "false") {
     repositories {
-      // plugin is not available in gradlePluginPortal yet
-      // maven("https://dl.bintray.com/raniejade/godot-kotlin")
       // dev builds
-      maven("https://dl.bintray.com/raniejade/godot-kotlin-dev")
+      // maven("https://dl.bintray.com/raniejade/godot-kotlin-dev")
       jcenter()
     }
   }

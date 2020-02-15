@@ -10,10 +10,8 @@ buildscript {
 
 subprojects {
   repositories {
-    // godot-kotlin artifacts are not in jcenter yet
-    // maven("https://dl.bintray.com/raniejade/godot-kotlin")
     // dev builds
-    maven("https://dl.bintray.com/raniejade/godot-kotlin-dev")
+    // maven("https://dl.bintray.com/raniejade/godot-kotlin-dev")
     jcenter()
   }
 }
