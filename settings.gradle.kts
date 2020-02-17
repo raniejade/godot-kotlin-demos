@@ -14,17 +14,12 @@ if (compositeBuild == "true") {
 pluginManagement {
   val godotKotlinVersion: String by settings
   val compositeBuild: String by settings
-  resolutionStrategy.eachPlugin {
-    if (requested.id.id == "com.github.raniejade.godot-kotlin") {
-      useModule("com.github.raniejade:godot-kotlin-gradle-plugin:$godotKotlinVersion")
-    }
-  }
 
-  if (compositeBuild == "false") {
-    repositories {
-      // dev builds
-      // maven("https://dl.bintray.com/raniejade/godot-kotlin-dev")
-      jcenter()
+  if (compositeBuild == "true") {
+    resolutionStrategy.eachPlugin {
+      if (requested.id.id == "com.github.raniejade.godot-kotlin") {
+        useModule("com.github.raniejade:godot-kotlin-gradle-plugin:$godotKotlinVersion")
+      }
     }
   }
 }

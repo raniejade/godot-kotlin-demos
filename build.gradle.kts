@@ -1,3 +1,7 @@
+plugins {
+  id("com.github.raniejade.godot-kotlin") version "32.1.0" apply false
+}
+
 buildscript {
   repositories {
     jcenter()
